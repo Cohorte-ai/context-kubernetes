@@ -1,0 +1,124 @@
+apiVersion: context/v1
+kind: ContextDomain
+metadata:
+  name: sales
+  namespace: acme-corp
+  labels:
+    sensitivity: confidential
+    owner: head-of-sales
+
+spec:
+  sources:
+    - name: client-context
+      type: git-repo
+      config:
+        repo: git@ctx.internal:sales/clients.git
+      refresh: realtime
+      ingestion:
+        chunking: semantic
+        chunkSize: 500
+        embedding: text-embedding-3-small
+
+    - name: pipeline
+      type: connector
+      config:
+        system: postgresql
+        scope: opportunities
+        credentials: vault://db/sales
+      refresh: 1h
+
+    - name: communications
+      type: connector
+      config:
+        system: gmail
+        filter: "label:client-comms"
+      refresh: 15m
+      ingestion:
+        chunking: per-thread
+        ttl: 180d
+
+  access:
+    roles:
+      - role: sales-rep
+        read: ["clients/${assigned}/*"]
+        write: ["clients/${assigned}/*"]
+      - role: sales-manager
+        read: ["*"]
+        write: ["*"]
+    agentPermissions:
+      read: autonomous
+      write:
+        default: soft-approval
+        paths:
+          "*/contracts/*": strong-approval
+          "pipeline/*": autonomous
+      execute:
+        send-internal-msg: soft-approval
+        send-external-email: strong-approval
+        commit-to-pricing: excluded
+    crossDomain:
+      - domain: operations
+        mode: brokered
+      - domain: finance
+        mode: brokered
+      - domain: hr
+        mode: denied
+
+  freshness:
+    defaults:
+      maxAge: 24h
+      staleAction: flag
+      expiredAction: archive
+    overrides:
+      - path: "*/communications/*"
+        maxAge: 4h
+        staleAction: re-sync
+      - path: "pipeline/*"
+        maxAge: 1h
+        staleAction: re-sync
+
+  routing:
+    intentParsing: llm-assisted
+    tokenBudget: 8000
+    priority:
+      - signal: semantic_relevance
+        weight: 0.40
+      - signal: recency
+        weight: 0.30
+      - signal: authority
+        weight: 0.20
+      - signal: user_relevance
+        weight: 0.10
+
+  operator:
+    type: master-agent
+    template: sales-v2
+    intelligence:
+      patternEngine:
+        minSignals: 3
+        window: 30d
+    guardrails:
+      - "CANNOT commit to pricing without approval"
+      - "CANNOT share client A data with client B"
+
+  trust:
+    policies:
+      - name: no-unreviewed-external-email
+        trigger: action.send_email
+        condition: recipient.domain != company.domain
+        action: "require_approval(tier: strong)"
+    anomalyDetection:
+      baseline: per-user-per-role
+      threshold: 3x
+      response: alert-admin
+    audit:
+      level: full
+      retention: 7y
+
+  reliability:
+    minLevel: 0.90
+    method: trustgate
+    schedule:
+      deploy: true
+      model-change: true
+      monthly: true
