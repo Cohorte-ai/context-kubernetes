@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from context_kubernetes.audit.log import InMemoryAuditLog, FileAuditLog
+from context_kubernetes.audit.log import InMemoryAuditLog
 from context_kubernetes.config.manifest import DomainManifest
 from context_kubernetes.cxri.connectors.git_connector import GitConnector
 from context_kubernetes.cxri.interface import ConnectionConfig

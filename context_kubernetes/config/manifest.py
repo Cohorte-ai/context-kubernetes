@@ -15,7 +15,6 @@ from pydantic import BaseModel, Field
 
 from context_kubernetes.models import ApprovalTier
 
-
 # ---------------------------------------------------------------------------
 # Source configuration
 # ---------------------------------------------------------------------------

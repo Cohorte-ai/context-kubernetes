@@ -13,11 +13,9 @@ Two backends:
 from __future__ import annotations
 
 import json
-import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
 
 from context_kubernetes.models import AuditEvent
 
@@ -37,7 +35,7 @@ class InMemoryAuditLog:
         if not event.event_id:
             event.event_id = f"evt-{int(time.time()*1000)}-{len(self._events)}"
         if not event.timestamp:
-            event.timestamp = datetime.now(timezone.utc)
+            event.timestamp = datetime.now(UTC)
         self._events.append(event)
 
     def query(
@@ -94,7 +92,7 @@ class FileAuditLog:
         if not event.event_id:
             event.event_id = f"evt-{int(time.time()*1000)}"
         if not event.timestamp:
-            event.timestamp = datetime.now(timezone.utc)
+            event.timestamp = datetime.now(UTC)
 
         line = event.model_dump_json() + "\n"
         with open(self._path, "a", encoding="utf-8") as f:
@@ -113,7 +111,7 @@ class FileAuditLog:
             return []
 
         results: list[AuditEvent] = []
-        with open(self._path, "r", encoding="utf-8") as f:
+        with open(self._path, encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -142,7 +140,7 @@ class FileAuditLog:
             return 0
 
         count = 0
-        with open(self._path, "r", encoding="utf-8") as f:
+        with open(self._path, encoding="utf-8") as f:
             for line in f:
                 if not line.strip():
                     continue

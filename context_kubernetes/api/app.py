@@ -19,19 +19,18 @@ import time
 from contextlib import asynccontextmanager
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from context_kubernetes.api.state import AppState, get_state
 from context_kubernetes.models import (
     ActionRequest,
     ApprovalTier,
+    AuditEvent,
     ContextRequest,
     ContextResponse,
-    AuditEvent,
 )
-from context_kubernetes.api.state import AppState, get_state
-
 
 # -----------------------------------------------------------------------
 # Lifespan

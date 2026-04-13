@@ -12,8 +12,9 @@ from __future__ import annotations
 import asyncio
 import json
 import time
-from datetime import datetime, timezone
-from typing import Any, AsyncIterator
+from collections.abc import AsyncIterator
+from datetime import UTC, datetime
+from typing import Any
 
 from context_kubernetes.cxri.interface import (
     ChangeEvent,
@@ -22,7 +23,7 @@ from context_kubernetes.cxri.interface import (
     HealthStatus,
     WriteResult,
 )
-from context_kubernetes.models import ContextUnit, ContextUnitMetadata, ContentType
+from context_kubernetes.models import ContentType, ContextUnit, ContextUnitMetadata
 
 
 class PostgresConnector(CxRIConnector):
@@ -194,10 +195,10 @@ class PostgresConnector(CxRIConnector):
                 # In production, this would use proper LISTEN/NOTIFY
                 # For prototype, we poll for changes
                 try:
-                    notification = await asyncio.wait_for(
+                    await asyncio.wait_for(
                         conn.fetchval("SELECT 1"), timeout=5.0
                     )
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     continue
                 except Exception:
                     yield ChangeEvent(
@@ -310,10 +311,10 @@ class PostgresConnector(CxRIConnector):
         content = "\n".join(lines)
 
         # Extract timestamp if available
-        timestamp = datetime.now(timezone.utc)
+        timestamp = datetime.now(UTC)
         for ts_col in ("updated_at", "created_at", "modified_at", "timestamp", "date"):
             if ts_col in row and isinstance(row[ts_col], datetime):
-                timestamp = row[ts_col].replace(tzinfo=timezone.utc) if row[ts_col].tzinfo is None else row[ts_col]
+                timestamp = row[ts_col].replace(tzinfo=UTC) if row[ts_col].tzinfo is None else row[ts_col]
                 break
 
         # Extract entities from text columns

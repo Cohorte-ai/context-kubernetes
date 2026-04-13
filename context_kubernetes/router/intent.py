@@ -219,7 +219,10 @@ Available domains: {domains_str}
 Query: "{query}"
 
 Return JSON only:
-{{"primary_domain": "...", "entities": ["..."], "intent_type": "status_update|search|action|analysis|policy|general_query", "time_scope": "current|historical|upcoming", "secondary_domains": ["..."], "confidence": 0.0-1.0}}"""
+{{"primary_domain": "...", "entities": ["..."],
+"intent_type": "status_update|search|action|analysis|policy|general_query",
+"time_scope": "current|historical|upcoming",
+"secondary_domains": ["..."], "confidence": 0.0-1.0}}"""
 
         response = await self._llm_client.chat.completions.create(
             model=self._llm_model,
@@ -282,7 +285,7 @@ Return JSON only:
 
         # Extract entities from the most recent history entry
         if history:
-            last = history[-1].lower()
+            history[-1].lower()
             # Find capitalized words in history as context
             context_entities = IntentClassifier._extract_entities(history[-1])
             if context_entities:

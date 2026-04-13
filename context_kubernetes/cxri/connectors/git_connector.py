@@ -17,11 +17,12 @@ from __future__ import annotations
 import asyncio
 import os
 import time
-from datetime import datetime, timezone
+from collections.abc import AsyncIterator
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, AsyncIterator
+from typing import Any
 
-from git import Repo, InvalidGitRepositoryError, GitCommandError
+from git import GitCommandError, InvalidGitRepositoryError, Repo
 
 from context_kubernetes.cxri.interface import (
     ChangeEvent,
@@ -30,8 +31,7 @@ from context_kubernetes.cxri.interface import (
     HealthStatus,
     WriteResult,
 )
-from context_kubernetes.models import ContextUnit, ContextUnitMetadata, ContentType
-
+from context_kubernetes.models import ContentType, ContextUnit, ContextUnitMetadata
 
 # File extensions we treat as context (readable text)
 CONTEXT_EXTENSIONS = {".md", ".txt", ".yaml", ".yml", ".json", ".csv", ".rst", ".org"}
@@ -284,7 +284,7 @@ class GitConnector(CxRIConnector):
 
         # Get git metadata for this file
         author = "unknown"
-        timestamp = datetime.now(timezone.utc)
+        timestamp = datetime.now(UTC)
         version = ""
 
         try:
@@ -293,7 +293,7 @@ class GitConnector(CxRIConnector):
                 last_commit = commits[0]
                 author = str(last_commit.author)
                 timestamp = datetime.fromtimestamp(
-                    last_commit.committed_date, tz=timezone.utc
+                    last_commit.committed_date, tz=UTC
                 )
                 version = last_commit.hexsha[:12]
         except Exception:

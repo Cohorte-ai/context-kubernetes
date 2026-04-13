@@ -156,7 +156,7 @@ spec:
 ```
 context-kubernetes/
 ├── context_kubernetes/         # Source code
-│   ├── api/                    # FastAPI service (11 endpoints)
+│   ├── api/                    # FastAPI service (10 endpoints)
 │   ├── config/                 # Manifest parser
 │   ├── cxri/                   # Context Runtime Interface
 │   │   └── connectors/         # Git, PostgreSQL connectors

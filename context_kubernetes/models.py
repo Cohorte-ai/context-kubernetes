@@ -3,46 +3,45 @@
 from __future__ import annotations
 
 import hashlib
-from datetime import datetime
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
-
 
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
 
 
-class ContentType(str, Enum):
+class ContentType(StrEnum):
     UNSTRUCTURED = "unstructured"
     STRUCTURED = "structured"
     HYBRID = "hybrid"
 
 
-class FreshnessState(str, Enum):
+class FreshnessState(StrEnum):
     FRESH = "fresh"
     STALE = "stale"
     EXPIRED = "expired"
     CONFLICTED = "conflicted"
 
 
-class ApprovalTier(str, Enum):
+class ApprovalTier(StrEnum):
     AUTONOMOUS = "autonomous"  # T1: agent acts freely
     SOFT_APPROVAL = "soft-approval"  # T2: user confirms in UI
     STRONG_APPROVAL = "strong-approval"  # T3: out-of-band 2FA
     EXCLUDED = "excluded"  # not in agent profile
 
 
-class ActionOutcome(str, Enum):
+class ActionOutcome(StrEnum):
     APPROVED = "approved"
     DENIED = "denied"
     PENDING = "pending"
     EXPIRED = "expired"
 
 
-class DriftType(str, Enum):
+class DriftType(StrEnum):
     SOURCE_DISCONNECTED = "source_disconnected"
     CONTEXT_STALE = "context_stale"
     OPERATOR_UNHEALTHY = "operator_unhealthy"
@@ -60,7 +59,7 @@ class ContextUnitMetadata(BaseModel):
     """Metadata set m for a context unit."""
 
     author: str | None = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     domain: str
     sensitivity: str = "internal"  # public | internal | confidential | restricted
     entities: list[str] = Field(default_factory=list)
@@ -147,7 +146,7 @@ class Session(BaseModel):
     role: str
     workspace_scope: str  # e.g., "clients/henderson"
     permission_profile: AgentPermissionProfile
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     expires_at: datetime | None = None
     active: bool = True
 
@@ -197,7 +196,7 @@ class ApprovalRequest(BaseModel):
     action: ActionRequest
     tier: ApprovalTier
     description: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     expires_at: datetime | None = None
 
 
@@ -218,7 +217,7 @@ class AuditEvent(BaseModel):
     """Immutable record of every interaction with the system."""
 
     event_id: str = ""
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     session_id: str
     user_id: str
     agent_id: str = ""
@@ -242,6 +241,6 @@ class DriftEvent(BaseModel):
     domain: str
     source: str = ""
     details: str = ""
-    detected_at: datetime = Field(default_factory=datetime.utcnow)
+    detected_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     resolved: bool = False
     resolution: str = ""

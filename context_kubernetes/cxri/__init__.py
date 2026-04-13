@@ -4,6 +4,6 @@ The standard adapter between the orchestration layer and context stores.
 Every context source implements six operations.
 """
 
-from context_kubernetes.cxri.interface import CxRIConnector, ConnectionConfig, HealthStatus
+from context_kubernetes.cxri.interface import ConnectionConfig, CxRIConnector, HealthStatus
 
 __all__ = ["CxRIConnector", "ConnectionConfig", "HealthStatus"]

@@ -13,8 +13,8 @@ This is the core component that makes "ask by intent, not by location" work.
 
 from __future__ import annotations
 
-import time
 import hashlib
+import time
 from typing import Any
 
 from context_kubernetes.cxri.interface import CxRIConnector
@@ -26,8 +26,8 @@ from context_kubernetes.models import (
     FreshnessState,
 )
 from context_kubernetes.permissions.engine import PermissionEngine
-from context_kubernetes.router.intent import IntentClassifier, ClassifiedIntent
-from context_kubernetes.router.ranking import RankingEngine, RankingSignalWeights, RankedResult
+from context_kubernetes.router.intent import ClassifiedIntent, IntentClassifier
+from context_kubernetes.router.ranking import RankingEngine
 
 
 class ContextRouter:

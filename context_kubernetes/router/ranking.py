@@ -12,9 +12,8 @@ Weights are declared in the manifest routing spec.
 from __future__ import annotations
 
 import math
-import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from context_kubernetes.models import ContextUnit
 
@@ -172,7 +171,7 @@ class RankingEngine:
         Half-life of 168 hours (1 week) means content from a week ago
         scores ~0.37, content from 2 weeks ago scores ~0.14.
         """
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         age = now - unit.metadata.timestamp
         age_hours = age.total_seconds() / 3600
 

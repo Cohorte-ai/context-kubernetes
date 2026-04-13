@@ -16,12 +16,10 @@ Key architectural properties:
 
 from __future__ import annotations
 
-import fnmatch
 import hashlib
 import secrets
 import time
-from datetime import datetime, timezone
-from typing import Any
+from datetime import UTC, datetime
 
 from pydantic import BaseModel, Field
 
@@ -29,7 +27,6 @@ from context_kubernetes.models import (
     ActionRequest,
     AgentPermissionProfile,
     ApprovalRequest,
-    ApprovalResponse,
     ApprovalTier,
     AuditEvent,
     OperationPermission,
@@ -46,7 +43,7 @@ class PendingApproval(BaseModel):
     action: ActionRequest
     tier: ApprovalTier
     otp_hash: str = ""  # SHA-256 of the OTP (for T3 verification)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     expires_at: float = 0.0  # unix timestamp
     resolved: bool = False
     approved: bool = False

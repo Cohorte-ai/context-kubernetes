@@ -15,16 +15,16 @@ implements this interface. The orchestration layer never talks to raw systems.
 
 from __future__ import annotations
 
-import asyncio
 from abc import ABC, abstractmethod
+from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import Any, AsyncIterator
+from enum import StrEnum
+from typing import Any
 
 from context_kubernetes.models import ContextUnit
 
 
-class HealthStatus(str, Enum):
+class HealthStatus(StrEnum):
     HEALTHY = "healthy"
     DEGRADED = "degraded"
     DISCONNECTED = "disconnected"
