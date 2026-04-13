@@ -1,0 +1,13 @@
+{
+  "experiment": "freshness_cost",
+  "without_reconciliation": {
+    "stale_served": 0,
+    "phantom_served": 2,
+    "total_scenarios": 4
+  },
+  "with_reconciliation": {
+    "stale_caught": 0,
+    "phantom_caught": 2,
+    "total_scenarios": 4
+  }
+}

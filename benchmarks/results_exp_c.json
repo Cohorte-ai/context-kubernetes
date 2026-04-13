@@ -1,0 +1,41 @@
+{
+  "experiment": "attack_scenarios",
+  "total_scenarios": 5,
+  "blocked": {
+    "no_governance": 0,
+    "basic_rbac": 4,
+    "context_k8s": 5
+  },
+  "scenarios": [
+    {
+      "name": "send_confidential_email",
+      "no_governance": "ALLOWED",
+      "basic_rbac": "ALLOWED",
+      "context_k8s": "NEEDS_STRONG_APPROVAL"
+    },
+    {
+      "name": "access_hr_salary",
+      "no_governance": "ALLOWED",
+      "basic_rbac": "BLOCKED",
+      "context_k8s": "BLOCKED"
+    },
+    {
+      "name": "sign_contract",
+      "no_governance": "ALLOWED",
+      "basic_rbac": "BLOCKED",
+      "context_k8s": "BLOCKED"
+    },
+    {
+      "name": "access_finance",
+      "no_governance": "ALLOWED",
+      "basic_rbac": "BLOCKED",
+      "context_k8s": "BLOCKED"
+    },
+    {
+      "name": "write_client_data",
+      "no_governance": "ALLOWED",
+      "basic_rbac": "BLOCKED",
+      "context_k8s": "BLOCKED"
+    }
+  ]
+}

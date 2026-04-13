@@ -1,0 +1,75 @@
+{
+  "timestamp": 1776067243.989689,
+  "runtime_seconds": 15.6,
+  "results_exp_a": {
+    "experiment": "governed_vs_ungoverned",
+    "ungoverned": {
+      "precision": 0.1835,
+      "noise_ratio": 0.8165,
+      "leak_rate": 0.2648,
+      "total_leaks": 88,
+      "token_waste_pct": 80.0
+    },
+    "governed": {
+      "precision": 0.1537,
+      "noise_ratio": 0.6761,
+      "leak_rate": 0.2158,
+      "total_leaks": 76,
+      "token_waste_pct": 79.9
+    }
+  },
+  "results_exp_b": {
+    "experiment": "freshness_cost",
+    "without_reconciliation": {
+      "stale_served": 0,
+      "phantom_served": 2,
+      "total_scenarios": 4
+    },
+    "with_reconciliation": {
+      "stale_caught": 0,
+      "phantom_caught": 2,
+      "total_scenarios": 4
+    }
+  },
+  "results_exp_c": {
+    "experiment": "attack_scenarios",
+    "total_scenarios": 5,
+    "blocked": {
+      "no_governance": 0,
+      "basic_rbac": 4,
+      "context_k8s": 5
+    },
+    "scenarios": [
+      {
+        "name": "send_confidential_email",
+        "no_governance": "ALLOWED",
+        "basic_rbac": "ALLOWED",
+        "context_k8s": "NEEDS_STRONG_APPROVAL"
+      },
+      {
+        "name": "access_hr_salary",
+        "no_governance": "ALLOWED",
+        "basic_rbac": "BLOCKED",
+        "context_k8s": "BLOCKED"
+      },
+      {
+        "name": "sign_contract",
+        "no_governance": "ALLOWED",
+        "basic_rbac": "BLOCKED",
+        "context_k8s": "BLOCKED"
+      },
+      {
+        "name": "access_finance",
+        "no_governance": "ALLOWED",
+        "basic_rbac": "BLOCKED",
+        "context_k8s": "BLOCKED"
+      },
+      {
+        "name": "write_client_data",
+        "no_governance": "ALLOWED",
+        "basic_rbac": "BLOCKED",
+        "context_k8s": "BLOCKED"
+      }
+    ]
+  }
+}

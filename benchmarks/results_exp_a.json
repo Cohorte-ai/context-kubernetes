@@ -1,0 +1,17 @@
+{
+  "experiment": "governed_vs_ungoverned",
+  "ungoverned": {
+    "precision": 0.1835,
+    "noise_ratio": 0.8165,
+    "leak_rate": 0.2648,
+    "total_leaks": 88,
+    "token_waste_pct": 80.0
+  },
+  "governed": {
+    "precision": 0.1537,
+    "noise_ratio": 0.6761,
+    "leak_rate": 0.2158,
+    "total_leaks": 76,
+    "token_waste_pct": 79.9
+  }
+}
