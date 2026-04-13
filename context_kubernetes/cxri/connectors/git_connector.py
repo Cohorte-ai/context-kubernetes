@@ -69,6 +69,7 @@ class GitConnector(CxRIConnector):
         self._scope = config.scope
         self._branch = config.extra.get("branch", "main")
         self._domain = config.extra.get("domain", "default")
+        self._authorized_roles: set[str] = set(config.extra.get("authorized_roles", []))
 
         endpoint = config.endpoint
 
@@ -309,7 +310,7 @@ class GitConnector(CxRIConnector):
                 entities=self._extract_entities_from_path(rel_path),
             ),
             version=version,
-            authorized_roles=set(),  # populated by Permission Engine at query time
+            authorized_roles=self._authorized_roles,  # from connector config
         )
 
     @staticmethod

@@ -1,0 +1,12 @@
+{
+  "experiment": "routing_quality",
+  "condition": "rule-based",
+  "num_queries": 47,
+  "domain_accuracy": 0.7021,
+  "avg_relevance_at_5": 1.0213,
+  "avg_relevance_at_10": 1.195,
+  "avg_mrr": 0.6655,
+  "avg_latency_ms": 202.34,
+  "p50_latency_ms": 176.31,
+  "p95_latency_ms": 390.39
+}

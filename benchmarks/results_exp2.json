@@ -1,0 +1,8 @@
+{
+  "experiment": "permission_correctness",
+  "total_tests": 7,
+  "unauthorized_retrievals": 0,
+  "false_positives": 0,
+  "invariant_violations": 0,
+  "all_correct": true
+}
