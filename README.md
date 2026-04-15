@@ -4,6 +4,7 @@
     <strong>Declarative Orchestration of Enterprise Knowledge for Agentic AI Systems</strong>
   </p>
   <p align="center">
+    <a href="https://arxiv.org/abs/2604.11623"><img src="https://img.shields.io/badge/arXiv-2604.11623-b31b1b" alt="arXiv"></a>
     <a href="https://github.com/Cohorte-ai/context-kubernetes/actions"><img src="https://img.shields.io/badge/tests-92%20passing-brightgreen" alt="Tests"></a>
     <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.11+-blue" alt="Python"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="License"></a>
@@ -18,7 +19,7 @@
 This repository contains the prototype implementation and experimental evaluation accompanying the paper:
 
 > **Context Kubernetes: Declarative Orchestration of Enterprise Knowledge for Agentic AI Systems**
-> Charafeddine Mouzouni, OPIT & Cohorte AI, 2026.
+> Charafeddine Mouzouni, OPIT & Cohorte AI, 2026. [[arXiv:2604.11623]](https://arxiv.org/abs/2604.11623)
 
 For the broader enterprise agentic platform context, see the companion book: [**The Enterprise Agentic Platform**](https://www.cohorte.co/playbooks/the-enterprise-agentic-platform).
 
@@ -188,8 +189,8 @@ context-kubernetes/
   title={Context Kubernetes: Declarative Orchestration of Enterprise Knowledge
          for Agentic AI Systems},
   author={Mouzouni, Charafeddine},
-  year={2026},
-  note={OPIT -- Open Institute of Technology, and Cohorte AI, Paris, France}
+  journal={arXiv preprint arXiv:2604.11623},
+  year={2026}
 }
 ```
 
