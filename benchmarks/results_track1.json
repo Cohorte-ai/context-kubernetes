@@ -1,0 +1,40 @@
+{
+  "experiment": "track1_rule_vs_llm",
+  "queries": 47,
+  "routing": {
+    "rule_based": {
+      "domain_accuracy": 0.7021,
+      "mrr": 0.5424,
+      "relevance_at_5": 0.7447,
+      "avg_latency_ms": 169.6,
+      "p95_latency_ms": 333.1
+    },
+    "llm_assisted": {
+      "domain_accuracy": 0.8085,
+      "mrr": 0.3733,
+      "relevance_at_5": 0.4894,
+      "avg_latency_ms": 1730.7,
+      "p95_latency_ms": 2942.6
+    }
+  },
+  "governance": {
+    "ungoverned": {
+      "precision": 0.1855,
+      "noise_ratio": 0.8145,
+      "leak_rate": 0.2645,
+      "total_leaks": 87
+    },
+    "governed_rule_based": {
+      "precision": 0.1541,
+      "noise_ratio": 0.6757,
+      "leak_rate": 0.2165,
+      "total_leaks": 76
+    },
+    "governed_llm_assisted": {
+      "precision": 0.0964,
+      "noise_ratio": 0.4568,
+      "leak_rate": 0.1438,
+      "total_leaks": 48
+    }
+  }
+}
