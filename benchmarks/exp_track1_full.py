@@ -36,7 +36,8 @@ from context_kubernetes.router.intent import IntentClassifier
 from context_kubernetes.router.ranking import RankingEngine
 from context_kubernetes.router.router import ContextRouter
 
-from benchmarks.test_queries import ALL_QUERIES, BenchmarkQuery
+from benchmarks.test_queries import BenchmarkQuery
+from benchmarks.test_queries_expanded import ALL_QUERIES_200 as ALL_QUERIES
 
 
 @dataclass
