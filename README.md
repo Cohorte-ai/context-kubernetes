@@ -92,6 +92,8 @@ python -m benchmarks.run_all_value_experiments
 uvicorn context_kubernetes.api.app:app --reload
 ```
 
+For a hands-on walkthrough, see the [Tutorial](docs/tutorial.md).
+
 ## API Endpoints
 
 | Method | Endpoint | Description |
