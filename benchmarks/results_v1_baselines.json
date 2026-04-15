@@ -1,0 +1,34 @@
+{
+  "experiment": "v1_stronger_baselines",
+  "queries": 200,
+  "baselines": [
+    {
+      "name": "B0: Ungoverned RAG",
+      "leaks": 375,
+      "leak_rate": 0.2649,
+      "noise": 0.8091,
+      "attacks": "0/5"
+    },
+    {
+      "name": "B1: ACL-filtered RAG",
+      "leaks": 0,
+      "leak_rate": 0.0,
+      "noise": 0.8279,
+      "attacks": "4/5"
+    },
+    {
+      "name": "B2: RBAC-aware RAG",
+      "leaks": 295,
+      "leak_rate": 0.209,
+      "noise": 0.6397,
+      "attacks": "4/5"
+    },
+    {
+      "name": "B3: Context Kubernetes",
+      "leaks": 307,
+      "leak_rate": 0.209,
+      "noise": 0.6397,
+      "attacks": "5/5"
+    }
+  ]
+}

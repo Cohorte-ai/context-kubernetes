@@ -40,3 +40,4 @@ credentials.json
 .ruff_cache/
 formal/states/
 *.dot
+texput.log
