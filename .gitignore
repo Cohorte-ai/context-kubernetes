@@ -34,3 +34,9 @@ htmlcov/
 *.key
 *.pem
 credentials.json
+# TLC artifacts
+*.bin
+*_TTrace_*
+.ruff_cache/
+formal/states/
+*.dot
